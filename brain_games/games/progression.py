@@ -19,7 +19,9 @@ def progression():
         random_index = randint(0, size_progression - 1)
         result = progress[random_index]
         progress[random_index] = '..'
-        print(f'Question: {list(map(str, progress))}')
+        question = list(map(str, progress))
+        question_output = ' '.join(question)
+        print(f'Question: {question_output}')
         answer = prompt.string('Your answer: ')
         if answer == str(result):
             print('Correct!')
