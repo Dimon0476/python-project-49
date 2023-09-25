@@ -1,34 +1,23 @@
-from random import randint
-import prompt
+import random
 
 
-def progression():
-    print("Welcome to the Brain Games!")
-    name = prompt.string('May I have your name? ')
-    print('Hello, ' + name + '!')
-    count_rounds = 3
-    size_progression = 10
-    print('What number is missing in the progression?')
-    i = 0
-    while i < count_rounds:
-        start = randint(1, 10)
-        rule = randint(1, 10)
-        progress = [start]
-        for j in range(size_progression):
-            progress.append(progress[j] + rule)
-        random_index = randint(0, size_progression - 1)
-        result = progress[random_index]
-        progress[random_index] = '..'
-        question = list(map(str, progress))
-        question_output = ' '.join(question)
-        print(f'Question: {question_output}')
-        answer = prompt.string('Your answer: ')
-        if answer == str(result):
-            print('Correct!')
-            i += 1
-        else:
-            print(f"'{answer}' is wrong answer;(.Correct answer was '{result}'.")
-            print("Let's try again, " + name + "!")
-            break
-    if i == count_rounds:
-        print(f'Congratulations, {name}!')
+DESCRIPTION = 'What number is missing in the progression?'
+SIZE_PROGRESSION = 10
+
+
+def generate_progression():
+    start = random.randint(1, 100)
+    rule = random.randint(2, 5)
+    progression = [start]
+    for i in range(SIZE_PROGRESSION):
+        progression.append(progression[i] + rule)
+    return progression
+
+
+def generate_round_data():
+    progression = generate_progression()
+    random_index = random.randint(0, SIZE_PROGRESSION - 1)
+    right = progression[random_index]
+    progression[random_index] = '..'
+    question = list(map(str, progression))
+    return ' '.join(question), str(right)
